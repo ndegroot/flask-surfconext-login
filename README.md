@@ -52,10 +52,10 @@ Using that you should receive a dict with keys and values:
 "sub": "..."}
 ```
 
-Here `sub` is an identity id. You might need a more identifying is, to domtht you can ask for a `name`or an mailaddress` by sending a an Openid claim. 
+Here `sub` is an identity id. You might need a more identifying id, to do that you can ask for a `name` or an mailaddress` by sending a an Openid *claim* in the initial call. Note that you need to specify in the registration that you are going to ask for a specific claim.
 
 ```python
-
+# add this to the login call in apps.py
 claims = '{"id_token":{"given_name":null,"email":null}}'
-self.oauth.surfconext.authorize_redirect(return_to_url, claims=claims)
+return self.oauth.surfconext.authorize_redirect(return_to_url, claims=claims)
 ```
