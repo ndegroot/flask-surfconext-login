@@ -11,7 +11,7 @@ Use `Poetry install` with supplied `pyproject.toml` or
 
 ## Config
 
-Create your Surf Conext OpenID Client using the Dashboard 
+Create/register your Surf Conext OpenID Client using the Dashboard 
 see <https://wiki.surfnet.nl/display/surfconextdev/Connect+in+5+Steps> for info, 
 make sure to add `http://127.0.0.1:5000/auth` to the list of Authorized redirect URIs.
 
@@ -35,8 +35,10 @@ Then visit:
 
     http://127.0.0.1:5000/
 
-You should see a page with a login link. 
-Using that you should be able to identify yourself successfully and after that (and a callback to nthe \auth() controller receive a dict with keys and values:
+You should see a page with a login link which calls the *login()* controller, sending a request to de openidprovider (IP) with a return_url parameter.
+You should be able to identify yourself successfully and after that a callback follows 
+with a *code* and *state* parameter to the *auth()* controller(the return_url). After verification you
+receive a dict with keys and values:
 
 ```
 {"acr": "urn:federation:authentication:windows", 
@@ -52,10 +54,10 @@ Using that you should be able to identify yourself successfully and after that (
 "sub": "..."}
 ```
 
-Here `sub` is an identity id. You might need a more identifying id, to do that you can ask for a `name` or an mailaddress` by sending a an Openid *claim* in the initial call. Note that you need to specify in the registration that you are going to ask for a specific claim.
+Here `sub` is an identity id. You might need a more identifying id, to do that you can ask for a `name` or an `email` by sending Openid *claims* in the initial call. Note that you need to specify in the registration that you are going to ask for a specific claim.
 
 ```python
-# add this to the login call in apps.py
+# add/change this in the login call in app.py
 claims = '{"id_token":{"given_name":null,"email":null}}'
 return self.oauth.surfconext.authorize_redirect(return_to_url, claims=claims)
 ```
