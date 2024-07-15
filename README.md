@@ -1,6 +1,6 @@
 # Surfconext login demo with Flask
 
-You can learn how the Flask OAuth 2.0 client works with OpenID with this demo.
+You can learn here how the Flask OAuth 2.0 client works with OpenID Surfconext.
 
 ## Install
 
@@ -13,7 +13,7 @@ Use `Poetry install` with supplied `pyproject.toml` or
 
 Create your Surf Conext OpenID Client using the Dashboard 
 see <https://wiki.surfnet.nl/display/surfconextdev/Connect+in+5+Steps> for info, 
-make sure to add `http://127.0.0.1:5000/auth` into the list of Authorized redirect URIs.
+make sure to add `http://127.0.0.1:5000/auth` to the list of Authorized redirect URIs.
 
 Fill the given client ID and secret into an new .env file which is read into `config.py`.
 
@@ -52,4 +52,10 @@ Using that you should receive a dict with keys and values:
 "sub": "..."}
 ```
 
+Here `sub` is an identity id. You might need a more identifying is, to domtht you can ask for a `name`or an mailaddress` by sending a an Openid claim. 
 
+```python
+
+claims = '{"id_token":{"given_name":null,"email":null}}'
+self.oauth.surfconext.authorize_redirect(return_to_url, claims=claims)
+```
