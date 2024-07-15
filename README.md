@@ -36,7 +36,7 @@ Then visit:
     http://127.0.0.1:5000/
 
 You should see a page with a login link. 
-Using that you should receive a dict with keys and values:
+Using that you should be able to identify yourself successfully and after that (and a callback to nthe \auth() controller receive a dict with keys and values:
 
 ```
 {"acr": "urn:federation:authentication:windows", 
